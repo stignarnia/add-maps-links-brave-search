@@ -1,6 +1,5 @@
-// DOM elements (all of these can possibly exist due to google's AB testing changing their UI)
-const buttonContainer = document.querySelector('.IUOThf'); // round buttons right below the search input
-const tabsContainer = document.querySelector('.crJ18e'); // tabs right below the search input
+// DOM elements
+const tabsContainer = document.getElementById("primary-tabs"); // tabs right below the search input
 
 // Using selector array as sometimes multiple different selectors are used for the same element depending on the variant rendered by Google
 const smallMapThumbnailElement = ['.lu-fs', '.V1GY4c']; // small thumbnail with a map, usually on the right side
@@ -8,51 +7,73 @@ const addressMapContainer = document.querySelector('#pimg_1');
 const placesMapContainer = document.querySelector('.S7dMR')
 const countryMapContainer = document.querySelector('.CYJS5e.W0urI.SodP3b.GHMsie.ZHugbd.UivI7b');
 
-// build simple URL search query from search params
+// Build simple URL search query from search params
 const searchQuery = new URLSearchParams(window.location.search).get('q');
-const parts = new URL(window.location).hostname.split('.');
-const topLevelDomainCode = parts[parts.length - 1];
-const mapsLink = `http://maps.google.${topLevelDomainCode}/maps?q=${searchQuery}`;
+const mapsURL = `https://maps.google.com/maps?q=${searchQuery}`;
+
+// This is needed to check if the page has loaded the SVG icons the second time, as for some reason they load the tabs, delete their icons and the one we added, then load them again. We might as well just wait for the second batch of icons to be added and then add the Maps tab.
+let pathCounter = 0;
 
 // ---------------------------
-// if buttons exist, add the maps button
-if (buttonContainer) {
-    const mapsButton = document.createElement('a');
-    mapsButton.classList.add('nPDzT', 'T3FoJb');
+// The observer will watch for changes in the DOM and add the Maps tab when the third path element (seems to be a good number to tell us when it's loading icons the second time) is added to the DOM
+const observer = new MutationObserver((mutationsList, observer) => {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeName.toLowerCase() === 'path') {
+                    pathCounter++;
+                    if (pathCounter === 3) {
+                        addMapsTab();
+                        observer.disconnect();
+                    }
+                }
+            });
+        }
+    }
+});
 
-    const mapDiv = document.createElement('div');
-    mapDiv.jsname = 'bVqjv';
-    mapDiv.classList.add('GKS7s');
-
-    const mapSpan = document.createElement('span');
-    mapSpan.classList.add('FMKtTb', 'UqcIvb');
-    mapSpan.jsname = 'pIvPIe';
-    mapSpan.textContent = 'Maps';
-
-    mapDiv.appendChild(mapSpan);
-    mapsButton.appendChild(mapDiv);
-    
-    mapsButton && (mapsButton.href = mapsLink);
-    buttonContainer.prepend(mapsButton);
+// If tabs exist, start the observer
+if (tabsContainer) {
+    observer.observe(document, { attributes: false, childList: true, subtree: true });
 }
 
 // if tabs exist, add the maps tab
-if (tabsContainer) {
-    const tabsButton = document.createElement('a');
-    tabsButton.classList.add('LatpMc', 'nPDzT', 'T3FoJb');
+function addMapsTab() {
+    // Create a new list item element for "Maps"
+    const mapsListItem = document.createElement("li");
+    mapsListItem.classList.add("tab-item", "svelte-1nkoeut"); // Add necessary classes
 
-    const mapSpan = document.createElement('span');
-    mapSpan.classList.add('YmvwI');
-    mapSpan.textContent = 'Maps';
+    // Create the content for the list item
+    const mapsLink = document.createElement("a");
+    mapsLink.href = mapsURL; // Set the link URL for Maps
+    mapsLink.classList.add("svelte-1nkoeut", "desktop-default-regular"); // Add necessary classes
 
-    tabsButton.appendChild(mapSpan);
-    tabsButton && (tabsButton.href = mapsLink);
+    const mapsIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    mapsIcon.setAttribute("width", "24");
+    mapsIcon.setAttribute("height", "24");
+    mapsIcon.classList.add("icon");
+    mapsIcon.setAttribute("viewBox", "0 0 576 512");
 
-    if (tabsContainer.children.length > 0) {
-        tabsContainer.insertBefore(tabsButton, tabsContainer.firstElementChild.nextSibling);
-    } else {
-        tabsContainer.appendChild(tabsButton);
-    }
+    const mapsPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    mapsPath.setAttribute("fill-rule", "evenodd");
+    mapsPath.setAttribute("clip-rule", "evenodd");
+    // Add the path definition for the Maps icon here
+    mapsPath.setAttribute("d", "M565.6 36.2C572.1 40.7 576 48.1 576 56V392c0 10-6.2 18.9-15.5 22.4l-168 64c-5.2 2-10.9 2.1-16.1 .3L192.5 417.5l-160 61c-7.4 2.8-15.7 1.8-22.2-2.7S0 463.9 0 456V120c0-10 6.1-18.9 15.5-22.4l168-64c5.2-2 10.9-2.1 16.1-.3L383.5 94.5l160-61c7.4-2.8 15.7-1.8 22.2 2.7zM48 136.5V421.2l120-45.7V90.8L48 136.5zM360 422.7V137.3l-144-48V374.7l144 48zm48-1.5l120-45.7V90.8L408 136.5V421.2z");
+
+    mapsIcon.appendChild(mapsPath);
+    mapsLink.appendChild(mapsIcon);
+
+    const mapsSpan = document.createElement("span");
+    mapsSpan.textContent = "Maps";
+
+    mapsLink.appendChild(mapsSpan);
+    mapsListItem.appendChild(mapsLink);
+
+    // Get the third element in the list (which should be "News")
+    const secondElement = tabsContainer.children[2];
+
+    // Insert the new "Maps" element before the third element
+    tabsContainer.insertBefore(mapsListItem, secondElement);
 }
 
 // if map thumbnail exists
@@ -65,11 +86,11 @@ if (smallMapThumbnailElement.length) {
             if (targettedElement) {
                 if (targettedElement.parentNode.tagName.toLowerCase() === 'a') {
                     // if its already an a tag, just update its href attribute with the generated maps link
-                    targettedElement.parentNode.href = mapsLink;
+                    targettedElement.parentNode.href = mapsURL;
                 } else {
                     // otherwise create a new a tag with href attribute set to generated maps link, then wrap it around the element
                     const wrapperLink = document.createElement('a');
-                    wrapperLink.href = mapsLink;
+                    wrapperLink.href = mapsURL;
                     targettedElement.parentNode.insertBefore(wrapperLink, targettedElement);
                     targettedElement.parentNode.removeChild(targettedElement);
                     wrapperLink.appendChild(targettedElement);
@@ -83,7 +104,7 @@ if (smallMapThumbnailElement.length) {
 // if address map is shown (the one right below search bar), make it clickable
 if (addressMapContainer) {
     const mapWrapperLinkEl = document.createElement('a');
-    mapWrapperLinkEl && (mapWrapperLinkEl.href = mapsLink);
+    mapWrapperLinkEl && (mapWrapperLinkEl.href = mapsURL);
 
     addressMapContainer.parentElement.insertBefore(mapWrapperLinkEl, addressMapContainer);
     mapWrapperLinkEl.appendChild(addressMapContainer);
@@ -111,7 +132,7 @@ if (placesMapContainer) {
         `;
 
     placesMapContainer.style.position = 'relative';
-    mapWrapperLinkEl && (mapWrapperLinkEl.href = mapsLink);
+    mapWrapperLinkEl && (mapWrapperLinkEl.href = mapsURL);
     placesMapContainer.append(mapWrapperLinkEl);
 }
     
@@ -137,6 +158,6 @@ if (countryMapContainer) {
         transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
         `;
 
-    mapWrapperLinkEl && (mapWrapperLinkEl.href = mapsLink);
+    mapWrapperLinkEl && (mapWrapperLinkEl.href = mapsURL);
     countryMapContainer.append(mapWrapperLinkEl);
 }
