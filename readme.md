@@ -1,7 +1,8 @@
 # Maps links in Brave Search
 
-- Adds a tab to the search results page with links to your preferred maps provider for the location of the search result;
-- Adds a button to the minimaps in the search results to open the location in your preferred maps provider.
+- Adds a tab to the search results page with links to your preferred maps provider for the location of the query;
+- Adds a button to the minimaps in the search results to open the location in your preferred maps provider;
+- Adds a button to the "Place" snippet in the search results to open the location in your preferred maps provider (Brave already does it for getting directions from here).
 
 This is the code repository for [Maps links in Brave Search extension](https://chromewebstore.google.com/detail/<pending>).
 
