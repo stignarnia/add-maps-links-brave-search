@@ -92,7 +92,6 @@ function addButtonToPlaceSnippet() {
 // If a minimap is shown, add a new button within that map that allows user to open it in their preferred maps provider instead while persisting the normal behavior of extending the map container if clicked within the UI map element
 function addButtonToMiniMap(mapContainer) {
     const mapWrapperLinkEl = document.createElement("a");
-    mapWrapperLinkEl.innerText = " Open in " + mapsName;
     mapWrapperLinkEl.href = mapsURL;
     mapWrapperLinkEl.classList.add("map-link", "custom-button"); // Add a class for the CSS
 
