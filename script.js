@@ -13,6 +13,7 @@ const buttonHoverColor = "#79a0f9";
 
 // Build simple URL search query from search params
 const searchQuery = new URLSearchParams(window.location.search).get("q");
+const mapsName = "Maps";
 const mapsURL = `https://maps.google.com/maps?q=${searchQuery}`;
 
 // This is needed to check if the page has loaded the SVG icons the second time, as for some reason they load the tabs, delete their icons and the one we added, then load them again. We might as well just wait for the second batch of icons to be added and then add the Maps tab.
@@ -23,9 +24,9 @@ let pathCounter = 0;
 // - Watch for changes in the DOM and add the Maps tab when the third path element (seems to be a good number to tell us when it"s loading icons the second time) is added to the DOM;
 // - When a minimap is loaded, it will add a button to open the user"s preferred maps provider;
 const observer = new MutationObserver((mutationsList) => {
-    for(let mutation of mutationsList) {
+    for (let mutation of mutationsList) {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
-            mutation.addedNodes.forEach((node) => {
+            for (let node of mutation.addedNodes) {
                 if (node.nodeName.toLowerCase() === "path") {
                     pathCounter++;
                     if (pathCounter === 3) {
@@ -36,7 +37,7 @@ const observer = new MutationObserver((mutationsList) => {
                         addButtonToMiniMap(node);
                     }
                 }
-            });
+            }
         }
     }
 });
@@ -48,37 +49,15 @@ if (tabsContainer) {
 
 // if tabs exist, add the maps tab
 function addMapsTab() {
-    // Create a new list item element for "Maps"
-    const mapsListItem = document.createElement("li");
-    mapsListItem.classList.add("tab-item", "svelte-1nkoeut"); // Add necessary classes
+    const newsTab = tabsContainer.childNodes[4];
+    const mapsTab = newsTab.cloneNode(true); // Clone the button with its children (that's why we need the true argument)
 
-    // Create the content for the list item
-    const mapsLink = document.createElement("a");
-    mapsLink.href = mapsURL; // Set the link URL for Maps
-    mapsLink.classList.add("svelte-1nkoeut", "desktop-default-regular"); // Add necessary classes
+    // Modify the duplicated tab
+    mapsTab.childNodes[0].href = mapsURL;
+    mapsTab.childNodes[0].childNodes[2].innerText = mapsName;
+    swapSvg(mapsTab);
 
-    const mapsIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    mapsIcon.setAttribute("width", "24");
-    mapsIcon.setAttribute("height", "24");
-    mapsIcon.classList.add("icon");
-    mapsIcon.setAttribute("viewBox", iconViewBox);
-
-    const mapsPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    mapsPath.setAttribute("fill-rule", "evenodd");
-    mapsPath.setAttribute("clip-rule", "evenodd");
-    mapsPath.setAttribute("d", mapIcon);
-
-    mapsIcon.appendChild(mapsPath);
-    mapsLink.appendChild(mapsIcon);
-
-    const mapsSpan = document.createElement("span");
-    mapsSpan.innerText = "Maps";
-
-    mapsLink.appendChild(mapsSpan);
-    mapsListItem.appendChild(mapsLink);
-
-    // Insert the new "Maps" element before the "News" element
-    tabsContainer.insertBefore(mapsListItem, tabsContainer.children[2]);
+    tabsContainer.insertBefore(mapsTab, newsTab);
 
     if (directionsButton) {
         addButtonToPlaceSnippet();
@@ -87,16 +66,14 @@ function addMapsTab() {
 
 // If a "Place" snippet is shown, add a new button that allows user to open it in their preferred maps provider before the directions button
 function addButtonToPlaceSnippet() {
-    directionsButton = directionsButton.childNodes[0].childNodes[2];  // We need the children to get the directions button we want to clone because it itself doesn"t have a unique identifier
-    const mapsButton = directionsButton.cloneNode(true); // Clone the button with its children (that"s why we need the true argument)
+    directionsButton = directionsButton.childNodes[0].childNodes[2];  // We need the children to get the directions button we want to clone because it itself doesn't have a unique identifier
+    const mapsButton = directionsButton.cloneNode(true); // Clone the button with its children (that's why we need the true argument)
 
     // Modify the duplicated button
-    mapsButton.childNodes[2].innerText = "Maps";
-    const svgElement = mapsButton.childNodes[0].childNodes[0];
-    svgElement.setAttribute("viewBox", iconViewBox);
-    svgElement.childNodes[0].setAttribute("d", mapIcon);
+    mapsButton.childNodes[2].innerText = mapsName;
+    swapSvg(mapsButton);
 
-    // Add the event listener to the new button as for some reason setting the href attribute doesn"t work
+    // Add the event listener to the new button as for some reason setting the href attribute doesn't work
     mapsButton.addEventListener("click", function() {
         window.location.href = mapsURL;
     });
@@ -108,7 +85,7 @@ function addButtonToPlaceSnippet() {
 // If a minimap is shown, add a new button within that map that allows user to open it in their preferred maps provider instead while persisting the normal behavior of extending the map container if clicked within the UI map element
 function addButtonToMiniMap(mapContainer) {
     const mapWrapperLinkEl = document.createElement("a");
-    mapWrapperLinkEl.innerText = " Open in Maps";
+    mapWrapperLinkEl.innerText = " Open in " + mapsName;
     mapWrapperLinkEl.href = mapsURL;
     mapWrapperLinkEl.classList.add("map-link"); // Add a class for the CSS
 
@@ -170,4 +147,10 @@ function addButtonToMiniMap(mapContainer) {
     `);
 
     mapContainer.parentNode.append(mapWrapperLinkEl);
+}
+
+function swapSvg(element) {
+    const svgElement = element.childNodes[0].childNodes[0];
+    svgElement.setAttribute("viewBox", iconViewBox);
+    svgElement.childNodes[0].setAttribute("d", mapIcon);
 }
