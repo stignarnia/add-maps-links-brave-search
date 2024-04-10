@@ -15,18 +15,17 @@ let mapsURL;
 let pathCounter = 0;
 
 // The observer will:
-// - Watch for changes in the DOM and add the Maps tab when the third path element (seems to be a good number to tell us when it"s loading icons the second time) is added to the DOM;
+// - Watch for changes in the DOM and add the Maps tab when the fifth path element (seems to be a good number to tell us when it"s loading icons the second time) is added to the DOM;
 // - When a minimap is loaded, it will add a button to open the user"s preferred maps provider;
 const observer = new MutationObserver((mutationsList) => {
     for (let mutation of mutationsList) {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
             for (let node of mutation.addedNodes) {
-                if (node.nodeName.toLowerCase() === "path") {
+                if (node.nodeName.toLowerCase() === "path" || node.nodeName.toLowerCase() === "canvas") {
                     pathCounter++;
-                    if (pathCounter === 3) {
+                    if (pathCounter === 5) {
                         addMapsTab();
                     }
-                } else if (node.nodeName.toLowerCase() === "canvas") {
                     if (node.classList.contains("maplibregl-canvas")) {
                         addButtonToMiniMap(node);
                     }

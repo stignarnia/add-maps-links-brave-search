@@ -20,7 +20,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 30%;
+    width: 10%;
+    max-width: 75px;
 }
 
 .custom-button {
