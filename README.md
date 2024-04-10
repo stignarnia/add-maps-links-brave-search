@@ -14,7 +14,7 @@ Many thanks to [Re-introduce google maps links to search page](https://github.co
 
 ## Note
 
-For some odd reason Windows Security flags the extension as a `Wacatac` trojan. I have submitted it to Microsoft to be checked and hopefully they will remove the flag. In the meantime, [this](https://www.virustotal.com/gui/file/47e768b50327ce8a6767c649c5579f57949e2db4ac5a379099f93017cecdcbfa/detection) is the VirusTotal scan of the extension, which obviously doesn't find anything.
+For some odd reason Windows Security flags `usersettings.js` (and therefore `index.html` since it includes it) as a `Wacatac` trojan. I have submitted it to Microsoft to be checked and hopefully they will remove the flag. In the meantime, [this](https://www.virustotal.com/gui/file/47e768b50327ce8a6767c649c5579f57949e2db4ac5a379099f93017cecdcbfa/detection) is the VirusTotal scan of the extension, which obviously doesn't find anything.
 
 ## Screenshots
 
