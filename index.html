@@ -2,17 +2,23 @@
   <body id="extBody">
     <h2>Maps links in Brave Search</h2>
     <p>
-      - Adds a tab to the search results page with links to your preferred maps provider for the location of the query;<br/>
+      - Introduces a new tab on the search results page, which provides a link to your chosen maps service, showing the location related to your search query;<br/>
       - Adds a button to the minimaps in the search results to open the location in your preferred maps provider;<br/>
-      - Adds a button to the "Place" snippet in the search results to open the location in your preferred maps provider (Brave already does it for getting directions from here).<br/>
+      - Adds a button to the "Place" snippet in the search results to open the location in your preferred maps provider (Brave already does this for getting directions from here).<br/>
     </p>
     <p>You can find the code for this <a href="https://github.com/stignarnia/add-gmaps-links-brave-search">here</a>.</p> 
     <p>It's open source so you know what is being installled on your machine (you can also use <a href="https://chromewebstore.google.com/detail/chrome-extension-source-v/jifpbeccnghkjeaalbbjmodiffmgedin">code extractor</a> on the extension directly).</p>
     <hr/>
+    <h3>Select a maps provider (try an option below to see how to use this)</Select></h3>
     <p> 
-        <button class="custom-button" type="button">Click Me!</button>
+      <textarea id="mapsProvider" class="custom-button"></textarea> <button id="save" class="custom-button">Save</button>
+    </p>
+    <h4>A few options</Select></h4>
+    <p> 
+      <button class="custom-button option">Google</button> <button class="custom-button option">Bing</button> <button class="custom-button option">OpenStreetMaps</button> <button class="custom-button option">Here</button>
     </p>
   </body>
 
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="background.js"></script>
 </html>

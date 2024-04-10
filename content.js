@@ -6,15 +6,14 @@ let directionsButton = document.getElementsByClassName("place-body")[0];
 const mapIcon = "M565.6 36.2C572.1 40.7 576 48.1 576 56V392c0 10-6.2 18.9-15.5 22.4l-168 64c-5.2 2-10.9 2.1-16.1 .3L192.5 417.5l-160 61c-7.4 2.8-15.7 1.8-22.2-2.7S0 463.9 0 456V120c0-10 6.1-18.9 15.5-22.4l168-64c5.2-2 10.9-2.1 16.1-.3L383.5 94.5l160-61c7.4-2.8 15.7-1.8 22.2 2.7zM48 136.5V421.2l120-45.7V90.8L48 136.5zM360 422.7V137.3l-144-48V374.7l144 48zm48-1.5l120-45.7V90.8L408 136.5V421.2z";
 const iconViewBox = "0 0 576 512";
 
-// Build simple URL search query from search params
-const searchQuery = new URLSearchParams(window.location.search).get("q");
+// Variables for user chosen maps provider and the current query
 const mapsName = "Maps";
-const mapsURL = `https://maps.google.com/maps?q=${searchQuery}`;
+const query = new URLSearchParams(window.location.search).get("q");
+let mapsURL;
 
 // This is needed to check if the page has loaded the SVG icons the second time, as for some reason they load the tabs, delete their icons and the one we added, then load them again. We might as well just wait for the second batch of icons to be added and then add the Maps tab.
 let pathCounter = 0;
 
-// ---------------------------
 // The observer will:
 // - Watch for changes in the DOM and add the Maps tab when the third path element (seems to be a good number to tell us when it"s loading icons the second time) is added to the DOM;
 // - When a minimap is loaded, it will add a button to open the user"s preferred maps provider;
@@ -41,6 +40,19 @@ const observer = new MutationObserver((mutationsList) => {
 if (tabsContainer) {
     observer.observe(document, { attributes: false, childList: true, subtree: true });
 }
+
+// Getting the base URL from user settings
+chrome.storage.sync.get(["mapsProvider"], function(result) {
+    if (result.mapsProvider) {
+        if (result.mapsProvider.includes("%s")) {
+            mapsURL = result.mapsProvider.replace("%s", query);
+        } else {
+            mapsURL = result.mapsProvider + query;
+        }
+    } else {
+        mapsURL = "https://google.com/maps?q=" + query;
+    }
+});
 
 // if tabs exist, add the maps tab
 function addMapsTab() {

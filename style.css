@@ -2,6 +2,8 @@
     --button-color: #7682cb;
     --button-hover-color: #79a0f9;
     --background-color: #17191e;
+    --a-nice-dimension: 40px;
+    --a-smaller-nice-dimension: 10px;
 }
 
 .map-icon {
@@ -13,8 +15,8 @@
 }
 
 .map-link {
-    margin-bottom: 10px;
-    margin-left: 10px;
+    margin-bottom: var(--a-smaller-nice-dimension);
+    margin-left: var(--a-smaller-nice-dimension);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -29,25 +31,30 @@
     font-weight: bold;
     text-decoration: none; /* Removes underline from link */
     border: 1px solid var(--button-color); /* Adds a subtle border */
-    border-radius: 40px; /* Rounded borders */
-    height: 40px;
-    line-height: 40px;
+    border-radius: var(--a-nice-dimension); /* Rounded borders */
+    line-height: var(--a-nice-dimension); /* Centers the text vertically */
+    padding-left: var(--a-smaller-nice-dimension);
+    padding-right: var(--a-smaller-nice-dimension);
 }
 
 .custom-button:hover {
     border-color: var(--button-hover-color); /* Change border color on hover */
     color: var(--button-hover-color) !important; /* Change text color on hover */
     text-decoration: none; /* Removes underline from link */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow on hover */
+    box-shadow: 0 0 var(--a-smaller-nice-dimension) rgba(0, 0, 0, 0.5); /* Adds a subtle shadow on hover */
 }
 
 .custom-button:visited {
     color: var(--button-color); /* Forcing the color not to change after the link has been visited */
 }
 
+.option {
+    margin-right: var(--a-smaller-nice-dimension);
+}
+
 #extBody {
     width: 500px;
-    padding: 40px;
+    padding: var(--a-nice-dimension);
     background-color: var(--background-color);
     color: white;
     a {
@@ -56,4 +63,22 @@
     a:hover {
         color: var(--button-hover-color);
     }
+}
+
+#mapsProvider {
+    height: 50px;
+    width: 75%;
+    resize: none;
+    white-space: nowrap;
+    overflow: scroll; /* We need scroll here for functionality */
+   
+    &::-webkit-scrollbar { /* We make it invisible this other way */
+      display: none;
+    }
+}
+
+#save {
+    position: absolute;
+    right: var(--a-nice-dimension);
+    margin-top: 5px;
 }

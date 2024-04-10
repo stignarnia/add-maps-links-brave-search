@@ -17,8 +17,11 @@
   "content_scripts": [
     {
       "matches": ["*://*.search.brave.com/*"],
-      "js": ["script.js"],
+      "js": ["content.js"],
       "css": ["style.css"]
     }
+  ],
+  "permissions": [
+    "storage"
   ]
 }
