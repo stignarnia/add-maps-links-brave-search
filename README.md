@@ -12,6 +12,10 @@ If you have any issues with the extension or want to suggest a new feature, plea
 
 Many thanks to [Re-introduce google maps links to search page](https://github.com/mrakowski0/readd-gmaps-links-chrome-extension). I forked it to use as a template for this extension.
 
+## Note
+
+For some odd reason Windows Security flags the extension as a `Wacatac` trojan. I have submitted it to Microsoft to be checked and hopefully they will remove the flag. In the meantime, [this](https://www.virustotal.com/gui/file/47e768b50327ce8a6767c649c5579f57949e2db4ac5a379099f93017cecdcbfa/detection) is the VirusTotal scan of the extension, which obviously doesn't find anything.
+
 ## Screenshots
 
 ![Tab](https://github.com/stignarnia/add-maps-links-brave-search/assets/80171209/1065a534-9d93-4d82-9921-288579718b36)
