@@ -8,7 +8,7 @@ This is the code repository for [Maps links in Brave Search extension](https://c
 
 It's open source so you know what is being installled on your machine (you can also use [code extractor](https://chromewebstore.google.com/detail/chrome-extension-source-v/jifpbeccnghkjeaalbbjmodiffmgedin) on the extension directly).
 
-If you have any issues with the extension or want to suggest a new feature, please let me know in the comments on the extension page or in this repository by [creating an issue](https://github.com/stignarnia/add-gmaps-links-brave-search/issues).
+If you have any issues with the extension or want to suggest a new feature, please let me know in the comments on the extension page or in this repository by [creating an issue](https://github.com/stignarnia/add-maps-links-brave-search/issues).
 Thanks!
 
 Many thanks to [Re-introduce google maps links to search page](https://github.com/mrakowski0/readd-gmaps-links-chrome-extension). I forked it to use as a template for this extension.
