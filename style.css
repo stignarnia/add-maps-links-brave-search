@@ -1,0 +1,59 @@
+:root {
+    --button-color: #7682cb;
+    --button-hover-color: #79a0f9;
+    --background-color: #17191e;
+}
+
+.map-icon {
+    vertical-align: sub;
+}
+
+.map-icon:hover {
+    color: var(--button-hover-color);
+}
+
+.map-link {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+}
+
+.custom-button {
+    color: var(--button-color);
+    font-size: 16px;
+    background: var(--background-color);
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none; /* Removes underline from link */
+    border: 1px solid var(--button-color); /* Adds a subtle border */
+    border-radius: 40px; /* Rounded borders */
+    height: 40px;
+    line-height: 40px;
+}
+
+.custom-button:hover {
+    border-color: var(--button-hover-color); /* Change border color on hover */
+    color: var(--button-hover-color) !important; /* Change text color on hover */
+    text-decoration: none; /* Removes underline from link */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow on hover */
+}
+
+.custom-button:visited {
+    color: var(--button-color); /* Forcing the color not to change after the link has been visited */
+}
+
+#extBody {
+    width: 500px;
+    padding: 40px;
+    background-color: var(--background-color);
+    color: white;
+    a {
+        color: var(--button-color);
+    }
+    a:hover {
+        color: var(--button-hover-color);
+    }
+}

@@ -16,10 +16,9 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "*://*.search.brave.com/*"
-      ],
-      "js": ["script.js"]
+      "matches": ["*://*.search.brave.com/*"],
+      "js": ["script.js"],
+      "css": ["style.css"]
     }
   ]
 }

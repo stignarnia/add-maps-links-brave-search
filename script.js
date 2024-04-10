@@ -6,11 +6,6 @@ let directionsButton = document.getElementsByClassName("place-body")[0];
 const mapIcon = "M565.6 36.2C572.1 40.7 576 48.1 576 56V392c0 10-6.2 18.9-15.5 22.4l-168 64c-5.2 2-10.9 2.1-16.1 .3L192.5 417.5l-160 61c-7.4 2.8-15.7 1.8-22.2-2.7S0 463.9 0 456V120c0-10 6.1-18.9 15.5-22.4l168-64c5.2-2 10.9-2.1 16.1-.3L383.5 94.5l160-61c7.4-2.8 15.7-1.8 22.2 2.7zM48 136.5V421.2l120-45.7V90.8L48 136.5zM360 422.7V137.3l-144-48V374.7l144 48zm48-1.5l120-45.7V90.8L408 136.5V421.2z";
 const iconViewBox = "0 0 576 512";
 
-// Colors for the button
-const buttonColor = "#7682cb";
-const backgroundColor = "#17191e";
-const buttonHoverColor = "#79a0f9";
-
 // Build simple URL search query from search params
 const searchQuery = new URLSearchParams(window.location.search).get("q");
 const mapsName = "Maps";
@@ -87,13 +82,13 @@ function addButtonToMiniMap(mapContainer) {
     const mapWrapperLinkEl = document.createElement("a");
     mapWrapperLinkEl.innerText = " Open in " + mapsName;
     mapWrapperLinkEl.href = mapsURL;
-    mapWrapperLinkEl.classList.add("map-link"); // Add a class for the CSS
+    mapWrapperLinkEl.classList.add("map-link", "custom-button"); // Add a class for the CSS
 
     const mapsIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     mapsIcon.width = "24";
     mapsIcon.height = "24";
     mapsIcon.setAttribute("viewBox", iconViewBox);
-    mapsIcon.classList.add("icon", "map-icon");
+    mapsIcon.classList.add("icon", "map-icon"); // Add a class for the CSS
 
     const mapsPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
     mapsPath.setAttribute("fill-rule", "evenodd");
@@ -102,49 +97,6 @@ function addButtonToMiniMap(mapContainer) {
 
     mapsIcon.appendChild(mapsPath);
     mapWrapperLinkEl.prepend(mapsIcon);
-
-    // Add the CSS for the button
-    document.head.insertAdjacentHTML("beforeend", `
-        <style>
-            .map-icon {
-                vertical-align: sub;
-            }
-
-            .map-icon:hover {
-                color: ${buttonHoverColor};
-            }
-
-            .map-link {
-                margin-bottom: 10px;
-                margin-left: 10px;
-                font-size: 16px;
-                position: absolute;
-                bottom: 0;
-                background: ${backgroundColor};
-                text-align: center;
-                font-weight: bold;
-                color: ${buttonColor};
-                left: 0;
-                width: 30%;
-                height: 40px;
-                line-height: 40px;
-                text-decoration: none; /* Removes underline from link */
-                border: 1px solid ${buttonColor}; /* Adds a subtle border */
-                border-radius: 40px; /* Rounded borders */
-            }
-
-            .map-link:hover {
-                border-color: ${buttonHoverColor}; /* Change border color on hover */
-                color: ${buttonHoverColor} !important; /* Change text color on hover */
-                text-decoration: none; /* Removes underline from link */
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow on hover */
-            }
-
-            .map-link:visited {
-                color: ${buttonColor}; /* Forcing the color not to change after the link has been visited */
-            }
-        </style>
-    `);
 
     mapContainer.parentNode.append(mapWrapperLinkEl);
 }

@@ -1,20 +1,18 @@
 <html>
-  <body style="width: 500px; padding: 40px;">
-    <h2>Re-introduce google maps links to search page</h2>
-    <p>This extension re-adds linked Google Maps button/tab above search results in google search page. In addition, it makes the little maps UI clickable as well.</p>
-    <p>Supported views:<br/>
-      - address maps<br/>
-      - google places maps<br/>
-      - country maps<br/>
-      - small map thumbnail on the right side (part of gallery)<br/>
+  <body id="extBody">
+    <h2>Maps links in Brave Search</h2>
+    <p>
+      - Adds a tab to the search results page with links to your preferred maps provider for the location of the query;<br/>
+      - Adds a button to the minimaps in the search results to open the location in your preferred maps provider;<br/>
+      - Adds a button to the "Place" snippet in the search results to open the location in your preferred maps provider (Brave already does it for getting directions from here).<br/>
     </p>
-    <p>The purpose of this extension is to allow non-technical people (or people afraid to use custom script loader extensions such as Tampermonkey) to have these functionalites back in their chrome browser.</p> 
-    <p>The code is very simple and is open source - <a href="https://github.com/mrakowski0/readd-gmaps-links-chrome-extension">GitHub link</a></p>
-    <hr />
+    <p>You can find the code for this <a href="https://github.com/stignarnia/add-gmaps-links-brave-search">here</a>.</p> 
+    <p>It's open source so you know what is being installled on your machine (you can also use <a href="https://chromewebstore.google.com/detail/chrome-extension-source-v/jifpbeccnghkjeaalbbjmodiffmgedin">code extractor</a> on the extension directly).</p>
+    <hr/>
     <p> 
-        <b>Some resources explaining why the default behavior has changed in EU countries:</b>
-        <div><a target="_blank" href="https://www.reddit.com/r/GoogleMaps/comments/19ahfx2/why_doesnt_maps_show_up_under_google_searches/">Reddit post</a></div>
-        <div><a target="_blank" href="https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/europe-fit-digital-age/digital-markets-act-ensuring-fair-and-open-digital-markets_en">Digital Markets Act (EU law) link</a></div>
+        <button class="custom-button" type="button">Click Me!</button>
     </p>
   </body>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
 </html>
