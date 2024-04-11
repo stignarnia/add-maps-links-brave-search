@@ -4,7 +4,7 @@
 - Adds a button to the minimaps in the search results to open the location in your preferred maps provider;
 - Adds a button to the "Place" snippet in the search results to open the location in your preferred maps provider (Brave already does this for getting directions from here).
 
-This is the code repository for [Maps links in Brave Search extension](https://chromewebstore.google.com/detail/<pending>).
+This is the code repository for [Maps links in Brave Search extension](https://chromewebstore.google.com/detail/maps-links-in-brave-searc/ondbffgahgofdhonchkcoiigkolcbdmk).
 
 It's open source so you know what is being installed on your machine (you can also use [code extractor](https://chromewebstore.google.com/detail/chrome-extension-source-v/jifpbeccnghkjeaalbbjmodiffmgedin) on the extension directly).
 
