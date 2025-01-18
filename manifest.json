@@ -1,7 +1,7 @@
 {
   "author": "stig.narnia@gmail.com",
   "name": "Maps links in Brave Search",
-  "description": "Chromium Extension to add Maps links to the Brave Search page",
+  "description": "Extension to add Maps links to the Brave Search page",
   "version": "1.0.1",
   "manifest_version": 3,
   "icons": {
