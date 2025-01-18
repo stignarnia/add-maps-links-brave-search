@@ -60,8 +60,8 @@ function addMapsTab() {
 
     // Modify the duplicated tab
     mapsTab.childNodes[0].href = mapsURL;
-    mapsTab.childNodes[0].childNodes[2].innerText = mapsName;
-    swapSvg(mapsTab);
+    mapsTab.childNodes[0].childNodes[1].innerText = mapsName;
+    //swapSvg(mapsTab);
 
     tabsContainer.insertBefore(mapsTab, newsTab);
 
@@ -111,8 +111,8 @@ function addButtonToMiniMap(mapContainer) {
     mapContainer.parentNode.append(mapWrapperLinkEl);
 }
 
-function swapSvg(element) {
+/* function swapSvg(element) {
     const svgElement = element.childNodes[0].childNodes[0];
     svgElement.setAttribute("viewBox", iconViewBox);
     svgElement.childNodes[0].setAttribute("d", mapIcon);
-}
+} */
