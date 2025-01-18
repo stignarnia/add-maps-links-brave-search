@@ -55,7 +55,16 @@ chrome.storage.sync.get(["mapsProvider"], function(result) {
 
 // if tabs exist, add the maps tab
 function addMapsTab() {
-    const newsTab = tabsContainer.childNodes[4];
+    let newsTab;
+    let areWeInNews = false;
+
+    if (window.location.pathname === "/news") {
+        newsTab = tabsContainer.childNodes[2];
+        areWeInNews = true;
+    } else {
+        newsTab = tabsContainer.childNodes[4];
+    }
+
     const mapsTab = newsTab.cloneNode(true); // Clone the button with its children (that's why we need the true argument)
 
     // Modify the duplicated tab
@@ -63,7 +72,11 @@ function addMapsTab() {
     mapsTab.childNodes[0].childNodes[1].innerText = mapsName;
     //swapSvg(mapsTab);
 
-    tabsContainer.insertBefore(mapsTab, newsTab);
+    if (areWeInNews) {
+        tabsContainer.insertBefore(mapsTab, newsTab.nextSibling);
+    } else {
+        tabsContainer.insertBefore(mapsTab, newsTab);
+    }
 
     if (directionsButton) {
         addButtonToPlaceSnippet();
