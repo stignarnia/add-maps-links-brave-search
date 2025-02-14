@@ -4,7 +4,7 @@
 - Adds a button to the minimaps in the search results to open the location in your preferred maps provider;
 - Adds a button to the "Place" snippet in the search results to open the location in your preferred maps provider (Brave already does this for getting directions from here).
 
-This is the code repository for [Maps links in Brave Search extension](https://chromewebstore.google.com/detail/maps-links-in-brave-searc/ondbffgahgofdhonchkcoiigkolcbdmk).
+This is the code repository for the [Maps links in Brave Search extension](https://chromewebstore.google.com/detail/maps-links-in-brave-searc/ondbffgahgofdhonchkcoiigkolcbdmk). [Firefox version](https://addons.mozilla.org/firefox/addon/maps-links-in-brave-search/).
 
 It's open source so you know what is being installed on your machine (you can also use [code extractor](https://chromewebstore.google.com/detail/chrome-extension-source-v/jifpbeccnghkjeaalbbjmodiffmgedin) on the extension directly).
 
@@ -24,7 +24,7 @@ Many thanks to [Re-introduce google maps links to search page](https://github.co
 
 ![Minimap-s](https://github.com/stignarnia/add-maps-links-brave-search/assets/80171209/b84f9629-14f4-4cda-b09f-39c7a116a1d4)
 
-## Manual Installation (only one available for Firefox)
+## Manual Installation
 
 - Download this repository by clicking the green `Code` button in the top right corner and then `Download ZIP`;
 - Extract the downloaded file in a folder of choice (you can't move it after you install it or you'll have to repeat the next steps);
@@ -39,15 +39,5 @@ Many thanks to [Re-introduce google maps links to search page](https://github.co
 
 - Chromium also includes Google Chrome, Microsoft Edge, and others;
 - Firefox requires extension signing to survive restarts, to work around this you can download Firefox Developer Edition or Nightly and, on `about:config`, set `xpinstall.signatures.required` to `false`. At this point, it becomes installable by following these steps:
-    - Open the `manifest.json` file and add at the end:
-        ``` json
-        ,
-        "browser_specific_settings": {
-            "gecko": {
-                "id": "example@example.org"
-            }
-        }
-        ```
-      then save and close;
     - Create a `.zip` file of all the files in this repository;
     - Upload it from `about:addons`, gear icon, `Install Add-on From File...`.
