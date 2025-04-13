@@ -14,11 +14,11 @@ Many thanks to [Re-introduce google maps links to search page](https://github.co
 
 ## Screenshots
 
-![Tab](https://github.com/stignarnia/add-maps-links-brave-search/assets/80171209/1065a534-9d93-4d82-9921-288579718b36)
+![Tab](https://github.com/user-attachments/assets/c1ecb242-f638-4372-a9cc-354bc8d1db51)
 
 ![Minimap](https://github.com/stignarnia/add-maps-links-brave-search/assets/80171209/5e7fd2d5-6d4f-4269-9cfe-183511cd65d1)
 
-![UI](https://github.com/stignarnia/add-maps-links-brave-search/assets/80171209/ab4f37cc-8f7d-4e86-81ee-b996d27a25db)
+![UI](https://github.com/user-attachments/assets/b5bcc91f-9bf3-4db3-83f3-1ceaa3f20029)
 
 ![Places](https://github.com/stignarnia/add-maps-links-brave-search/assets/80171209/e8b37541-e5e0-4e68-ab0a-b15d1674a64d)
 
