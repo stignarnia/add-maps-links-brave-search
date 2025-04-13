@@ -11,24 +11,38 @@ const mapsName = "Maps";
 const query = new URLSearchParams(window.location.search).get("q");
 let mapsURL;
 
-// This is needed to check if the page has loaded the SVG icons the second time, as for some reason they load the tabs, delete their icons and the one we added, then load them again. We might as well just wait for the second batch of icons to be added and then add the Maps tab.
-let pathCounter = 0;
+// Variables for the MutationObserver
+const timeoutDelay = 250;
+let i = 0;
+let lastIncrementTime = Date.now();
+let timeoutId = null;
 
 // The observer will:
-// - Watch for changes in the DOM and add the Maps tab when the fifth path element (seems to be a good number to tell us when it"s loading icons the second time) is added to the DOM;
-// - When a minimap is loaded, it will add a button to open the user's preferred maps provider;
+// - Watch for changes in the DOM and add the Maps tab when no new elements have been added for some time
+// - When a minimap is loaded, it will add a button to open the user's preferred maps provider
 const observer = new MutationObserver((mutationsList) => {
     for (let mutation of mutationsList) {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
             for (let node of mutation.addedNodes) {
-                if (node.nodeName.toLowerCase() === "path" || node.nodeName.toLowerCase() === "canvas") {
-                    pathCounter++;
-                    if (pathCounter === 5) {
+                i++;
+                lastIncrementTime = Date.now();
+                
+                // Clear any existing timeout
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+                
+                // Set new timeout to check if some time has passed without new increments
+                timeoutId = setTimeout(() => {
+                    const timeSinceLastIncrement = Date.now() - lastIncrementTime;
+                    if (timeSinceLastIncrement >= timeoutDelay) {
                         addMapsTab();
+                        observer.disconnect(); // Stop observing once we've added the tab
                     }
-                    if (node.classList.contains("maplibregl-canvas")) {
-                        addButtonToMiniMap(node);
-                    }
+                }, timeoutDelay);
+
+                if (node.nodeName.toLowerCase() === "canvas" && node.classList.contains("maplibregl-canvas")) {
+                    addButtonToMiniMap(node);
                 }
             }
         }
@@ -59,17 +73,17 @@ function addMapsTab() {
     let areWeInNews = false;
 
     if (window.location.pathname === "/news") {
-        newsTab = tabsContainer.childNodes[2];
+        newsTab = tabsContainer.childNodes[3];
         areWeInNews = true;
     } else {
-        newsTab = tabsContainer.childNodes[4];
+        newsTab = tabsContainer.childNodes[6];
     }
 
     const mapsTab = newsTab.cloneNode(true); // Clone the button with its children (that's why we need the true argument)
 
     // Modify the duplicated tab
     mapsTab.childNodes[0].href = mapsURL;
-    mapsTab.childNodes[0].childNodes[1].innerText = mapsName;
+    mapsTab.childNodes[0].childNodes[3].innerText = mapsName;
     //swapSvg(mapsTab);
 
     if (areWeInNews) {
