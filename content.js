@@ -16,7 +16,7 @@ let pathCounter = 0;
 
 // The observer will:
 // - Watch for changes in the DOM and add the Maps tab when the fifth path element (seems to be a good number to tell us when it"s loading icons the second time) is added to the DOM;
-// - When a minimap is loaded, it will add a button to open the user"s preferred maps provider;
+// - When a minimap is loaded, it will add a button to open the user's preferred maps provider;
 const observer = new MutationObserver((mutationsList) => {
     for (let mutation of mutationsList) {
         if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
@@ -124,8 +124,8 @@ function addButtonToMiniMap(mapContainer) {
     mapContainer.parentNode.append(mapWrapperLinkEl);
 }
 
-/* function swapSvg(element) {
+function swapSvg(element) {
     const svgElement = element.childNodes[0].childNodes[0];
     svgElement.setAttribute("viewBox", iconViewBox);
     svgElement.childNodes[0].setAttribute("d", mapIcon);
-} */
+}
