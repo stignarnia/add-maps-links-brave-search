@@ -2,6 +2,7 @@ const providers = [
     "https://google.com/maps?q=%s",
     "https://www.bing.com/maps?q=%s",
     "https://www.openstreetmap.org/search?query=%s",
+    "https://maps.apple.com/place?address=%s",
     "https://wego.here.com/discover/%s?map=omv"
 ];
 
